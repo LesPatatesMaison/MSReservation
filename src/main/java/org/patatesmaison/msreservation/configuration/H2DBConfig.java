@@ -30,19 +30,6 @@ public class H2DBConfig {
             Reservation reservation5 = new Reservation( 5L, 2L, "tutu", ZonedDateTime.now().plusDays(42), 7);
             Reservation reservation6 = new Reservation( 6L, 3L, "riri", ZonedDateTime.now().plusDays(63), 6);
 
-            reservation1.setCreatedAt(ZonedDateTime.now());
-            reservation1.setUpdatedAt(ZonedDateTime.now());
-            reservation2.setCreatedAt(ZonedDateTime.now());
-            reservation2.setUpdatedAt(ZonedDateTime.now());
-            reservation3.setCreatedAt(ZonedDateTime.now());
-            reservation3.setUpdatedAt(ZonedDateTime.now());
-            reservation4.setCreatedAt(ZonedDateTime.now());
-            reservation4.setUpdatedAt(ZonedDateTime.now());
-            reservation5.setCreatedAt(ZonedDateTime.now());
-            reservation5.setUpdatedAt(ZonedDateTime.now());
-            reservation6.setCreatedAt(ZonedDateTime.now());
-            reservation6.setUpdatedAt(ZonedDateTime.now());
-
             reservationDAO.save(reservation1);
             reservationDAO.save(reservation2);
             reservationDAO.save(reservation3);

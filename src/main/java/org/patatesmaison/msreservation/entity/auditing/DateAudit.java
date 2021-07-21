@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -20,9 +20,9 @@ public abstract class DateAudit {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private ZonedDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    private ZonedDateTime updatedAt;
+    private LocalDateTime updatedAt;
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Slf4j
@@ -26,7 +27,7 @@ public class ReservationDTO implements Serializable {
 
     private Integer nbPerson;
 
-    private ZonedDateTime createdAt;
+    private LocalDateTime createdAt;
 
 
     public ZonedDateTime getDateTime() {
