@@ -34,12 +34,12 @@ public class ReservationMapper implements EntityDTOMapper<Reservation, Reservati
 
     @Override
     public Reservation fromDto(Reservation entity, ReservationDTO dto) {
-        entity.setId(dto.getId());
-        entity.setBarId(dto.getBarId());
-        entity.setName(dto.getName());
-        entity.setDateTime(dto.getDateTime());
-        entity.setNbPerson(dto.getNbPerson());
-        entity.setCreatedAt(dto.getCreatedAt());
+        if(entity.getId() == null) entity.setId(dto.getId());
+
+        if(dto.getBarId() != null) entity.setBarId(dto.getBarId());
+        if(dto.getName() != null) entity.setName(dto.getName());
+        if(dto.getDateTime() != null) entity.setDateTime(dto.getDateTime());
+        if(dto.getNbPerson() != null) entity.setNbPerson(dto.getNbPerson());
 
         return entity;
     }
