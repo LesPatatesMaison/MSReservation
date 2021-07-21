@@ -3,6 +3,7 @@ package org.patatesmaison.msreservation.mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.patatesmaison.msreservation.dto.ReservationDTO;
 import org.patatesmaison.msreservation.entity.Reservation;
+import org.patatesmaison.msreservation.exception.APIException;
 import org.springframework.stereotype.Component;
 
 @Slf4j

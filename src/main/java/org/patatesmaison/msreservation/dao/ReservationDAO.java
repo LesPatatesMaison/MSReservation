@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface ReservationDAO extends JpaRepository<Reservation, Long> {
 
+//    Optional<Reservation> findById(Long id);
+
 //    Optional<Reservation> findFirstByRegionNameContaining(String containedString);
 //
 //    @Query("SELECT i FROM Item i WHERE i.name LIKE :prefix%")

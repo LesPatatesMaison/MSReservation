@@ -9,6 +9,6 @@ messages:
   reservation:
     not-found : "Reservation non trouvée"
     dto:
-      invalid: "Reservation non-conforme"
+      invalid: "Requete non-conforme"
 
 

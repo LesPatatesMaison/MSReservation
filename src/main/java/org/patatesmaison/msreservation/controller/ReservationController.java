@@ -13,7 +13,10 @@ import org.patatesmaison.msreservation.exception.ErrorMessage;
 import org.patatesmaison.msreservation.service.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.format.DateTimeParseException;
 
 @RestController
 @RequestMapping("reservation")
@@ -24,6 +27,12 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
+    @GetMapping("/test}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public String test() {
+        log.warn("-------------- Test reservation OK");
+        return "Test reservation OK";
+    }
 
     @ApiOperation(value = "Voir une reservation", response = ReservationDTO.class)
     @ApiResponses(value = {
@@ -50,14 +59,6 @@ public class ReservationController {
     public ReservationDTO create(@RequestBody ReservationDTO reservationDTO) throws APIException {
 
         return reservationService.create(reservationDTO);
-    }
-
-
-
-
-    @ExceptionHandler({APIException.class})
-    public ResponseEntity<ErrorMessage> handleAPIException(APIException e) {
-        return new ResponseEntity<>(new ErrorMessage(e.getMessage()), e.getHttpStatus());
     }
 
 }
