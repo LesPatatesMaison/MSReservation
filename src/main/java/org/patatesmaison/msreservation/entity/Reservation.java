@@ -27,7 +27,7 @@ public class Reservation extends DateAudit {
     @Column(unique = false, nullable = false)
     private String name;
 
-    @Column(unique = false, nullable = false, columnDefinition = "timestamp")
+    @Column(unique = false, nullable = false, columnDefinition = "timestamp with time zone")
     private ZonedDateTime dateTime;
 
     @Column(unique = false, nullable = false, columnDefinition = "integer default 1")
