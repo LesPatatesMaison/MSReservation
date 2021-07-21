@@ -28,8 +28,8 @@ public class Test {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public String test() {
-        log.warn("-------------- Test Recherche OK");
-        return "Test Recherche OK";
+        log.warn("-------------- Test reservation OK");
+        return "Test reservation OK";
     }
 
 
