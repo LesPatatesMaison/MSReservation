@@ -5,4 +5,10 @@ spring:
     config:
       uri: http://localhost:8888
 
+messages:
+  reservation:
+    not-found : "Reservation non trouvée"
+    dto:
+      invalid: "Reservation non-conforme"
+
 

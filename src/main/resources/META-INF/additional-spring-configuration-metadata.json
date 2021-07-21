@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "messages.reservation.not-found",
+      "type": "java.lang.String",
+      "description": "Description for messages.reservation.not-found."
+    },
+    {
+      "name": "messages.reservation.dto.invalid",
+      "type": "java.lang.String",
+      "description": "Description for messages.reservation.dto.invalid."
+    }
+  ] }
