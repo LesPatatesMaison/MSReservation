@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -23,19 +26,16 @@ public class H2DBConfig {
     CommandLineRunner initDatabase(ReservationDAO reservationDAO){
         return args -> {
 
-            Reservation reservation1 = new Reservation( 1L, 1L, "toto", ZonedDateTime.now().plusDays(10), 5);
-            Reservation reservation2 = new Reservation( 2L, 1L, "titi", ZonedDateTime.now().plusDays(10), 1);
-            Reservation reservation3 = new Reservation( 3L, 2L, "titi", ZonedDateTime.now().plusDays(12), 19);
-            Reservation reservation4 = new Reservation( 4L, 2L, "tutu", ZonedDateTime.now().plusDays(12), 2);
-            Reservation reservation5 = new Reservation( 5L, 2L, "tutu", ZonedDateTime.now().plusDays(42), 7);
-            Reservation reservation6 = new Reservation( 6L, 3L, "riri", ZonedDateTime.now().plusDays(63), 6);
+            List<Reservation> reservationList = new ArrayList<>(Arrays.asList(
+                new Reservation( 1L, "toto", ZonedDateTime.now().plusDays(10), 5),
+                new Reservation( 1L, "titi", ZonedDateTime.now().plusDays(10), 1),
+                new Reservation( 2L, "titi", ZonedDateTime.now().plusDays(12), 19),
+                new Reservation( 2L, "tutu", ZonedDateTime.now().plusDays(12), 2),
+                new Reservation( 2L, "tutu", ZonedDateTime.now().plusDays(42), 7),
+                new Reservation( 3L, "riri", ZonedDateTime.now().plusDays(63), 6)
+            ));
 
-            reservationDAO.save(reservation1);
-            reservationDAO.save(reservation2);
-            reservationDAO.save(reservation3);
-            reservationDAO.save(reservation4);
-            reservationDAO.save(reservation5);
-            reservationDAO.save(reservation6);
+            reservationList.forEach(reservationDAO::save);
         };
     }
 }

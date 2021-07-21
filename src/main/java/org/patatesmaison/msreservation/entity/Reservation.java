@@ -33,6 +33,13 @@ public class Reservation extends DateAudit {
     @Column(unique = false, nullable = false, columnDefinition = "integer default 1")
     private Integer nbPerson;
 
+    public Reservation(Long barId, String name, ZonedDateTime dateTime, Integer nbPerson) {
+        this.barId = barId;
+        this.name = name;
+        this.dateTime = dateTime;
+        this.nbPerson = nbPerson;
+    }
+
     public ZonedDateTime getDateTime() {
         return ZonedDateTime.from(dateTime);
     }
