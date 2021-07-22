@@ -2,13 +2,13 @@ package org.patatesmaison.msreservation.mapper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.patatesmaison.msreservation.client.ConcentrateurApiClient;
-import org.patatesmaison.msreservation.dao.ReservationDAO;
+import org.patatesmaison.msreservation.dao.UserDAO;
 import org.patatesmaison.msreservation.dto.BarDTO;
 import org.patatesmaison.msreservation.dto.ReservationDTO;
+import org.patatesmaison.msreservation.dto.UserDTO;
 import org.patatesmaison.msreservation.entity.Reservation;
-import org.patatesmaison.msreservation.exception.APIException;
+import org.patatesmaison.msreservation.entity.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -23,8 +23,11 @@ public class ReservationMapper implements EntityDTOMapper<Reservation, Reservati
 
     private final ConcentrateurApiClient concentrateurApiClient;
 
-    public ReservationMapper(ConcentrateurApiClient concentrateurApiClient) {
+    private final UserDAO userDAO;
+
+    public ReservationMapper(ConcentrateurApiClient concentrateurApiClient, UserDAO userDAO) {
         this.concentrateurApiClient = concentrateurApiClient;
+        this.userDAO = userDAO;
     }
 
     @Override
@@ -41,7 +44,10 @@ public class ReservationMapper implements EntityDTOMapper<Reservation, Reservati
         BarDTO barDTO = concentrateurApiClient.getBarById(entity.getBarId());
         dto.setBar(barDTO);
 
-        dto.setName(entity.getName());
+        User user = entity.getUser();
+        UserDTO userDTO = new UserDTO(user.getId(), user.getLogin(), user.getEmail(), user.getLastname(), user.getFirstname());
+        dto.setUser(userDTO);
+
         dto.setDateTime(entity.getDateTime());
         dto.setNbPerson(entity.getNbPerson());
         dto.setCreatedAt(entity.getCreatedAt());
@@ -50,20 +56,19 @@ public class ReservationMapper implements EntityDTOMapper<Reservation, Reservati
     }
 
     @Override
-    public Reservation fromDto(ReservationDTO dto) throws APIException {
+    public Reservation fromDto(ReservationDTO dto) {
         return fromDto(new Reservation(), dto);
     }
 
     @Override
-    public Reservation fromDto(Reservation entity, ReservationDTO dto) throws APIException {
+    public Reservation fromDto(Reservation entity, ReservationDTO dto) throws IllegalArgumentException {
+
         if(entity.getId() == null) entity.setId(dto.getId());
 
-        if((dto.getBar() == null || dto.getBar().getId() == null) && entity.getBarId() == null) {
-            throw new IllegalArgumentException(messageReservationInvalid);
-        }
         if(dto.getBar() != null && dto.getBar().getId() != null) entity.setBarId(dto.getBar().getId());
 
-        if(dto.getName() != null) entity.setName(dto.getName());
+        entity.setUser(userDAO.getById(dto.getUser().getId()));
+
         if(dto.getDateTime() != null) entity.setDateTime(dto.getDateTime());
         if(dto.getNbPerson() != null) entity.setNbPerson(dto.getNbPerson());
 

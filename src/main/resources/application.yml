@@ -11,5 +11,9 @@ messages:
     bar-not-found : "Bar pour cette reservation non trouvée"
     dto:
       invalid: "Requete non-conforme"
+  user:
+    not-found: "Utilisateur non trouvé"
+    dto:
+      invalid: "Requete non-conforme"
 
 

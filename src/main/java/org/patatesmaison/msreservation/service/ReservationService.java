@@ -1,9 +1,9 @@
 package org.patatesmaison.msreservation.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
 import org.patatesmaison.msreservation.client.ConcentrateurApiClient;
 import org.patatesmaison.msreservation.dao.ReservationDAO;
+import org.patatesmaison.msreservation.dao.UserDAO;
 import org.patatesmaison.msreservation.dto.ReservationDTO;
 import org.patatesmaison.msreservation.entity.Reservation;
 import org.patatesmaison.msreservation.exception.APIException;
@@ -32,12 +32,15 @@ public class ReservationService {
 
     private final ReservationMapper reservationMapper;
 
+    private final UserDAO userDAO;
+
     private final ConcentrateurApiClient concentrateurApiClient;
 
 
-    public ReservationService(ReservationDAO reservationDAO, ReservationMapper reservationMapper, ConcentrateurApiClient concentrateurApiClient) {
+    public ReservationService(ReservationDAO reservationDAO, ReservationMapper reservationMapper, UserDAO userDAO, ConcentrateurApiClient concentrateurApiClient) {
         this.reservationDAO = reservationDAO;
         this.reservationMapper = reservationMapper;
+        this.userDAO = userDAO;
         this.concentrateurApiClient = concentrateurApiClient;
     }
 
@@ -57,12 +60,6 @@ public class ReservationService {
 
         if (!isReservationDTOValid(reservationDTO)) throw new APIException(messageReservationInvalid, HttpStatus.BAD_REQUEST);
 
-        try {
-            concentrateurApiClient.getBarById(reservationDTO.getBar().getId());
-        } catch (RestClientException e) {
-            throw new APIException(messageBarNotFound, HttpStatus.NOT_FOUND);
-        }
-
         Reservation reservation = reservationMapper.fromDto(reservationDTO);
         this.reservationDAO.save(reservation);
 
@@ -73,11 +70,24 @@ public class ReservationService {
 
 
     private boolean isReservationDTOValid(ReservationDTO reservationDTO) {
-        // todo: chack dateTime valid ?
-        return reservationDTO != null
-                && reservationDTO.getBar() != null
-                && reservationDTO.getBar().getId() != null
-                && !Strings.isBlank(reservationDTO.getName())
-                && reservationDTO.getDateTime() != null;
+
+        boolean isValid = reservationDTO != null
+                                && reservationDTO.getBar() != null
+                                && reservationDTO.getBar().getId() != null
+                                && reservationDTO.getUser() != null
+                                && reservationDTO.getUser().getId() != null
+                                && reservationDTO.getDateTime() != null;
+
+        if(!isValid) return false;
+
+        if(userDAO.findById(reservationDTO.getUser().getId()).isEmpty()) return false;
+
+        try {
+            concentrateurApiClient.getBarById(reservationDTO.getBar().getId());
+        } catch (RestClientException e) {
+            return false;
+        }
+
+        return true;
     }
 }

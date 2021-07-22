@@ -1,7 +1,5 @@
 package org.patatesmaison.msreservation.mapper;
 
-import org.patatesmaison.msreservation.exception.APIException;
-
 public interface EntityDTOMapper<E, D> {
     /**
      * Genere un DTO à partir d'une entité
@@ -9,7 +7,7 @@ public interface EntityDTOMapper<E, D> {
      * @param entity entité
      * @return dto
      */
-    D fromEntity(E entity) throws APIException;
+    D fromEntity(E entity);
 
     /**
      * Enrichi un dto existant depuis une entité
@@ -18,7 +16,7 @@ public interface EntityDTOMapper<E, D> {
      * @param entity entité
      * @return dto
      */
-    D fromEntity(D dto, E entity) throws APIException;
+    D fromEntity(D dto, E entity);
 
     /**
      * Génére une entité depuis un dto
@@ -26,7 +24,7 @@ public interface EntityDTOMapper<E, D> {
      * @param dto dto
      * @return entité
      */
-    E fromDto(D dto) throws APIException;
+    E fromDto(D dto);
 
     /**
      * Enrichie une entité depuis un dto
@@ -35,5 +33,5 @@ public interface EntityDTOMapper<E, D> {
      * @param dto    dto
      * @return entité
      */
-    E fromDto(E entity, D dto) throws APIException;
+    E fromDto(E entity, D dto);
 }
