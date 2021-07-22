@@ -48,12 +48,12 @@ public class UserMapper implements EntityDTOMapper<User, UserDTO> {
 
     @Override
     public User fromDto(User entity, UserDTO dto) {
-        if(entity.getId() == null) entity.setId(dto.getId());
+        if(entity.getId() == null && dto.getId() != null) entity.setId(dto.getId());
 
-        entity.setLogin(dto.getLogin());
-        entity.setEmail(dto.getEmail());
-        entity.setLastname(dto.getLastname());
-        entity.setFirstname(dto.getFirstname());
+        if(dto.getLogin() != null) entity.setLogin(dto.getLogin());
+        if(dto.getEmail() != null) entity.setEmail(dto.getEmail());
+        if(dto.getLastname() != null) entity.setLastname(dto.getLastname());
+        if(dto.getFirstname() != null) entity.setFirstname(dto.getFirstname());
 
         return entity;
     }

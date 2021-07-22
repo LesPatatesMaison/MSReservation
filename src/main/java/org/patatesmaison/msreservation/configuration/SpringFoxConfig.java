@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
- * http://localhost:8080/swagger-ui/
+ * http://localhost:8030/swagger-ui/
  */
 @Configuration
 @EnableSwagger2

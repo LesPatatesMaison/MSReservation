@@ -5,9 +5,12 @@ import org.patatesmaison.msreservation.client.ConcentrateurApiClient;
 import org.patatesmaison.msreservation.dao.ReservationDAO;
 import org.patatesmaison.msreservation.dao.UserDAO;
 import org.patatesmaison.msreservation.dto.ReservationDTO;
+import org.patatesmaison.msreservation.dto.UserDTO;
 import org.patatesmaison.msreservation.entity.Reservation;
+import org.patatesmaison.msreservation.entity.User;
 import org.patatesmaison.msreservation.exception.APIException;
 import org.patatesmaison.msreservation.mapper.ReservationMapper;
+import org.patatesmaison.msreservation.util.Logging;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -57,6 +60,7 @@ public class ReservationService {
     }
 
     public ReservationDTO create(ReservationDTO reservationDTO) throws APIException {
+        Logging.logEnter();
 
         if (!isReservationDTOValid(reservationDTO)) throw new APIException(messageReservationInvalid, HttpStatus.BAD_REQUEST);
 
@@ -65,6 +69,28 @@ public class ReservationService {
 
         // todo: get it from h2 instead
         return reservationMapper.fromEntity(reservation);
+    }
+
+    public ReservationDTO update(ReservationDTO reservationDTO) throws APIException {
+        Logging.logEnter();
+
+        if (!isReservationDTOValid(reservationDTO) || reservationDTO.getId() == null) throw new APIException(messageReservationInvalid, HttpStatus.BAD_REQUEST);
+
+        Optional<Reservation> reservationOptional = reservationDAO.findById(reservationDTO.getId());
+        if(reservationOptional.isEmpty()) throw new APIException(messageReservationNotFound, HttpStatus.NOT_FOUND);
+
+        Reservation reservation = reservationMapper.fromDto(reservationOptional.get(), reservationDTO);
+        this.reservationDAO.save(reservation);
+
+        return reservationMapper.fromEntity(reservation);
+    }
+
+    public void delete(Long reservationId) throws APIException {
+        Optional<Reservation> reservationOptional = reservationDAO.findById(reservationId);
+
+        if(reservationOptional.isEmpty()) throw new APIException(messageReservationNotFound, HttpStatus.NOT_FOUND);
+
+        this.reservationDAO.delete(reservationOptional.get());
     }
 
 

@@ -50,4 +50,30 @@ public class ReservationController {
         return reservationService.create(reservationDTO);
     }
 
+    @ApiOperation(value = "Modifier une reservation", response = ReservationDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reservation bien modifiée"),
+            @ApiResponse(responseCode = "400", description = "Requete erronée"),
+    })
+    @PutMapping
+    @ResponseStatus(code = HttpStatus.OK)
+    public ReservationDTO update(@RequestBody ReservationDTO reservationDTO) throws APIException {
+
+        return reservationService.update(reservationDTO);
+    }
+
+    @ApiOperation(value = "Supprimer une reservation", response = Void.class)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Reservation bien supprimée"),
+            @ApiResponse(responseCode = "400", description = "Requete erronée"),
+    })
+    @DeleteMapping("/{id}")
+    @ApiParam(name = "{id}", required = true)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") Long id) throws APIException {
+
+        reservationService.delete(id);
+    }
+
+
 }
