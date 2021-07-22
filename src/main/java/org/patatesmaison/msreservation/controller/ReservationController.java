@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("reservation")
 @Api(value = "Reservation API", produces = "", consumes = "", tags = "Reservation", protocols = "GET, POST, PUT, DELETE")
 @AllArgsConstructor
 @Slf4j
@@ -30,7 +30,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "404", description = "Reservation non trouvée"),
     })
     @ApiParam(name = "{id}", required = true)
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ReservationDTO get(@PathVariable("id") Long id) throws APIException {
 

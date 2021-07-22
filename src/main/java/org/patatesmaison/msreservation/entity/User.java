@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.patatesmaison.msreservation.entity.auditing.DateAudit;
+import org.patatesmaison.msreservation.util.Logging;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -48,5 +49,10 @@ public class User extends DateAudit {
         this.email = email;
         this.lastname = lastname;
         this.firstname = firstname;
+    }
+
+    @Override
+    public String toString() {
+        return Logging.toStringNotNull(this);
     }
 }

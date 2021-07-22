@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 @Api(value = "User API", produces = "", consumes = "", tags = "User", protocols = "GET, POST, PUT, DELETE")
 @AllArgsConstructor
 @Slf4j
@@ -59,7 +59,19 @@ public class UserController {
     @GetMapping("/{id}/reservation")
     @ResponseStatus(code = HttpStatus.OK)
     public Set<ReservationDTO> getUserReservation(@PathVariable("id") Long userId) throws APIException {
-        log.warn("--------------------"+userId+"--------------------");
         return userService.getUserReservation(userId);
+    }
+
+    @ApiOperation(value = "Voir les 3 reservations les plus recentes d'un utilisateur", response = ReservationDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "reservations trouvées"),
+            @ApiResponse(responseCode = "400", description = "Requete erronée"),
+            @ApiResponse(responseCode = "404", description = "reservations non trouvées"),
+    })
+    @ApiParam(name = "{id}", required = true)
+    @GetMapping("/{id}/reservation/recent")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Set<ReservationDTO> getUser3MostRecentReservations(@PathVariable("id") Long userId) throws APIException {
+        return userService.getUser3MostRecentReservations(userId);
     }
 }

@@ -1,6 +1,7 @@
 package org.patatesmaison.msreservation.dao;
 
 import org.patatesmaison.msreservation.entity.Reservation;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,8 @@ import java.util.Set;
 public interface ReservationDAO extends JpaRepository<Reservation, Long> {
 
         Set<Reservation> findAllByUserId(Long id);
+
+        Set<Reservation> findTop3ByUserIdOrderByDateTimeDesc(Long id);
 
 //    Optional<Reservation> findById(Long id);
 

@@ -64,4 +64,13 @@ public class UserService {
 
         return reservationSet.stream().map(reservationMapper::fromEntity).collect(Collectors.toSet());
     }
+
+    public Set<ReservationDTO> getUser3MostRecentReservations(Long userId) throws APIException {
+        Optional<User> userOptional = userDAO.findById(userId);
+        if(userOptional.isEmpty()) throw new APIException(messageUserNotFound, HttpStatus.NOT_FOUND);
+
+        Set<Reservation> reservationSet = reservationDAO.findTop3ByUserIdOrderByDateTimeDesc(userId);
+
+        return reservationSet.stream().map(reservationMapper::fromEntity).collect(Collectors.toSet());
+    }
 }

@@ -25,8 +25,6 @@ public class Reservation extends DateAudit {
     @Column(unique = false, nullable = false)
     private Long barId;
 
-//    private Long userId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
@@ -36,9 +34,8 @@ public class Reservation extends DateAudit {
     @Column(unique = false, nullable = false, columnDefinition = "integer default 1")
     private Integer nbPerson;
 
-    public Reservation(Long barId, User user, /*Long userId,*/ ZonedDateTime dateTime, Integer nbPerson) {
+    public Reservation(Long barId, User user, ZonedDateTime dateTime, Integer nbPerson) {
         this.barId = barId;
-//        this.userId = userId;
         this.user = user;
         this.dateTime = dateTime;
         this.nbPerson = nbPerson;

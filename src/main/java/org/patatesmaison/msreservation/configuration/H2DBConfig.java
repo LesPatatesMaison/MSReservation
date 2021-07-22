@@ -53,10 +53,10 @@ public class H2DBConfig {
                     new Reservation( 8L, userList.get(3), ZonedDateTime.now().plusDays(42), 7),
                     new Reservation( 9L, userList.get(3), ZonedDateTime.now().plusDays(63), 6),
                     new Reservation( 10L, userList.get(4), ZonedDateTime.now().plusDays(10), 5),
-                    new Reservation( 11L, userList.get(4), ZonedDateTime.now().plusDays(10), 1),
-                    new Reservation( 22L, userList.get(5), ZonedDateTime.now().plusDays(12), 19),
-                    new Reservation( 14L, userList.get(5), ZonedDateTime.now().plusDays(12), 2),
-                    new Reservation( 25L, userList.get(5), ZonedDateTime.now().plusDays(42), 7),
+                    new Reservation( 11L, userList.get(5), ZonedDateTime.now().plusDays(10), 1),
+                    new Reservation( 14L, userList.get(5), ZonedDateTime.now().plusDays(12), 19),
+                    new Reservation( 19L, userList.get(5), ZonedDateTime.now().plusDays(21), 2),
+                    new Reservation( 22L, userList.get(5), ZonedDateTime.now().plusDays(42), 7),
                     new Reservation( 31L, userList.get(5), ZonedDateTime.now().plusDays(63), 6)
             ));
 

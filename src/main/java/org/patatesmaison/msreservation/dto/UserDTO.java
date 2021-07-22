@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.patatesmaison.msreservation.util.Logging;
 
 import java.io.Serializable;
 
@@ -26,4 +27,8 @@ public class UserDTO implements Serializable {
 
     private String firstname;
 
+    @Override
+    public String toString() {
+        return Logging.toStringNotNull(this);
+    }
 }
