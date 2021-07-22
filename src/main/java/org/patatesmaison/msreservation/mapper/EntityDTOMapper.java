@@ -26,7 +26,7 @@ public interface EntityDTOMapper<E, D> {
      * @param dto dto
      * @return entité
      */
-    E fromDto(D dto);
+    E fromDto(D dto) throws APIException;
 
     /**
      * Enrichie une entité depuis un dto
@@ -35,5 +35,5 @@ public interface EntityDTOMapper<E, D> {
      * @param dto    dto
      * @return entité
      */
-    E fromDto(E entity, D dto);
+    E fromDto(E entity, D dto) throws APIException;
 }

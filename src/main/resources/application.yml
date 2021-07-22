@@ -8,6 +8,7 @@ spring:
 messages:
   reservation:
     not-found : "Reservation non trouvée"
+    bar-not-found : "Bar pour cette reservation non trouvée"
     dto:
       invalid: "Requete non-conforme"
 

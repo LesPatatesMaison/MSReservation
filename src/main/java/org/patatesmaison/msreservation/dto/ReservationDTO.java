@@ -23,7 +23,7 @@ public class ReservationDTO implements Serializable {
 
     private Long id;
 
-    private Long barId;
+    private BarDTO bar;
 
     private String name;
 
@@ -40,6 +40,11 @@ public class ReservationDTO implements Serializable {
 
     public void setDateTime(ZonedDateTime dateTime){
         this.dateTime = dateTime == null ? null : ZonedDateTime.from(dateTime);
+    }
+
+    public void setBarId(Long barId) {
+        if(bar == null) bar = new BarDTO();
+        this.bar.setId(barId);
     }
 
     @Override
