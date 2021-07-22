@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.patatesmaison.msreservation.exception.APIException;
+import org.patatesmaison.msreservation.util.Logging;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -39,5 +40,10 @@ public class ReservationDTO implements Serializable {
 
     public void setDateTime(ZonedDateTime dateTime){
         this.dateTime = dateTime == null ? null : ZonedDateTime.from(dateTime);
+    }
+
+    @Override
+    public String toString() {
+        return Logging.toStringNotNull(this);
     }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.patatesmaison.msreservation.entity.auditing.DateAudit;
+import org.patatesmaison.msreservation.util.Logging;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -46,6 +47,11 @@ public class Reservation extends DateAudit {
 
     public void setDateTime(ZonedDateTime dateTime) {
         this.dateTime = ZonedDateTime.from(dateTime);
+    }
+
+    @Override
+    public String toString() {
+        return Logging.toStringNotNull(this);
     }
 }
 
