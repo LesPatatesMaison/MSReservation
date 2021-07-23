@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.patatesmaison.msreservation.dto.AuthenticationDTO;
 import org.patatesmaison.msreservation.dto.ReservationDTO;
 import org.patatesmaison.msreservation.dto.UserDTO;
 import org.patatesmaison.msreservation.exception.APIException;
@@ -14,6 +15,7 @@ import org.patatesmaison.msreservation.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +24,7 @@ import java.util.Set;
 @Api(value = "User API", produces = "", consumes = "", tags = "User", protocols = "GET, POST, PUT, DELETE")
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin(origins = {"http://127.0.0.1, http://127.0.0.1:*, http://localhost:*"})
 public class UserController {
 
     private final UserService userService;
@@ -111,4 +114,18 @@ public class UserController {
 
         userService.delete(id);
     }
+
+    @ApiOperation(value = "Se Logger", response = ReservationDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "utilisateur trouvé"),
+            @ApiResponse(responseCode = "400", description = "Requete erronée"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "utilisateur non trouvé"),
+    })
+    @PostMapping("/login")
+    @ResponseStatus(code = HttpStatus.OK)
+    public UserDTO login(@RequestBody AuthenticationDTO authenticationDTO) throws APIException {
+        return userService.login(authenticationDTO);
+    }
+
 }

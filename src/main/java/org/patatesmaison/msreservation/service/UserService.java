@@ -1,8 +1,10 @@
 package org.patatesmaison.msreservation.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.patatesmaison.msreservation.controller.UserController;
 import org.patatesmaison.msreservation.dao.ReservationDAO;
 import org.patatesmaison.msreservation.dao.UserDAO;
+import org.patatesmaison.msreservation.dto.AuthenticationDTO;
 import org.patatesmaison.msreservation.dto.ReservationDTO;
 import org.patatesmaison.msreservation.dto.UserDTO;
 import org.patatesmaison.msreservation.entity.Reservation;
@@ -110,6 +112,14 @@ public class UserService {
         if(userOptional.isEmpty()) throw new APIException(messageUserNotFound, HttpStatus.NOT_FOUND);
 
         this.userDAO.delete(userOptional.get());
+    }
+
+    public UserDTO login(AuthenticationDTO authenticationDTO) throws APIException {
+        Optional<User> userOptional = userDAO.getByLogin(authenticationDTO.login);
+
+        if(userOptional.isEmpty()) throw new APIException(messageUserNotFound, HttpStatus.UNAUTHORIZED);
+
+        return userMapper.fromEntity(userOptional.get());
     }
 
     private boolean isUserDTOValid(UserDTO userDTO) {
