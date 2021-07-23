@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface UserDAO  extends JpaRepository<User, Long> {
 
-    Optional<User> getByLogin(String login);
+    Optional<User> findByLogin(String login);
 }

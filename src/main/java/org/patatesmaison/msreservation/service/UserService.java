@@ -115,7 +115,8 @@ public class UserService {
     }
 
     public UserDTO login(AuthenticationDTO authenticationDTO) throws APIException {
-        Optional<User> userOptional = userDAO.getByLogin(authenticationDTO.login);
+        Logging.log("warn", authenticationDTO.toString());
+        Optional<User> userOptional = userDAO.findByLogin(authenticationDTO.login);
 
         if(userOptional.isEmpty()) throw new APIException(messageUserNotFound, HttpStatus.UNAUTHORIZED);
 

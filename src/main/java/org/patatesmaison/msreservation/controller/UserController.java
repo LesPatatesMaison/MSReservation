@@ -24,7 +24,6 @@ import java.util.Set;
 @Api(value = "User API", produces = "", consumes = "", tags = "User", protocols = "GET, POST, PUT, DELETE")
 @AllArgsConstructor
 @Slf4j
-@CrossOrigin(origins = {"http://127.0.0.1, http://127.0.0.1:*, http://localhost:*"})
 public class UserController {
 
     private final UserService userService;
@@ -122,6 +121,7 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "404", description = "utilisateur non trouvé"),
     })
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     @ResponseStatus(code = HttpStatus.OK)
     public UserDTO login(@RequestBody AuthenticationDTO authenticationDTO) throws APIException {
